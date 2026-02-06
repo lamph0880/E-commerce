@@ -7,7 +7,7 @@
 
 3. EDA
    - 첫줄에 마크다운 셀 추가
-   - 특성간 분포 단순비교 시작 전, 'Prior_purchases'와 'Customer_care_calls'의 범주 다듬는 셀을 하나로 통합, 주석 추가
+   - 특성간 분포 단순비교 시작 전, 'Prior_purchases'와 'Customer_care_calls'의 범주 다듬는 셀을 하나로 통합, 주석 추가 + 오류 해결
    - 가격,무게,할인액 비교 kdeplot에 산점도 추가
       ->kdeplot이 리소스를 많이 사용해서 산점도를 추가. 이후 kdeplot 제거할지 고민중. 피드백 요망
 
