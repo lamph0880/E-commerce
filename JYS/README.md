@@ -1,3 +1,12 @@
+[2026-02-09, 14:23] v3.1
+
+1. 파생변수 추가
+- 'log_price_per_weight'와 'Management_score'는 지연율을 설명할때 2차함수의 움직임을 따라가므로 polynomial을 판다스로 구현
+'log_price_per_weight_sq'와 'Management_score_sq'를 생성.
+원본과 제곱버전의 특성 모두 변수로 사용해야 한다고 함.
+
+
+
 [2026-02-09, 11:40] v3.0
 
 1. 특성간 분포 단순비교의 시각화 일부 수정
