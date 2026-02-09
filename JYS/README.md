@@ -5,7 +5,7 @@
 'log_price_per_weight_sq'와 'Management_score_sq'를 생성.
 원본과 제곱버전의 특성 모두 변수로 사용해야 한다고 함.
 
-
++ one-hot encoding 에서 'Wh_Shipment_Combo' 삭제(파생변수 생성시 레이블링 적용)
 
 [2026-02-09, 11:40] v3.0
 
