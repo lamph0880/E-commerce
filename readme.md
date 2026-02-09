@@ -12,9 +12,12 @@
 
 ### 3. 사용한 기술 스택   
 * 데이터 분석 : pandas, numpy, matplotlib, seaborn, sklearn, math
+* 모델링 : LogisticRegression, KNeighborsClassifier, SVC, DecisionTreeClassifier, RandomForestClassifier
+            GradientBoostingClassifier, ExtraTreesClassifier, StackingClassifier, XGBClassifier, LGBMClassifier
+            CatBoostClassifier, AutoGluon
+* 평가 지표 : sklearn.metrics
 
-* 모델링
-
+3. 데이터 분석 및 모델링 과정
 ### 4. 데이터 분석 및 모델링 과정
 데이터의 특성 간 상관관계를 시각화해서 데이터를 분석, 지연에 영향을 미치는 특성을 파악합니다.
 * Discount_offered   
@@ -35,8 +38,30 @@
 * Scaled Numeric Features  
               이유 : 각 특성 별로 단위가 다르기 떄문에, 각 특성을 0~1 사이의 값으로 변환합니다.   
 
-모델링 및 하이퍼파라미터 튜닝을 통해 모델 성능 최적화   
-수동모델과 자동모델을 비교하여 최적의 모델을 선택
+모델링 및 하이퍼파라미터 튜닝을 통해 모델 성능 최적화
+    1. Gap 설정
+        데이터 특성 상 모델의 과적합을 방지하기 위해 설정
+
+    2. 10가지 모델을 기본 파라미터로 학습
+        과적합이 아닌 모델 중 성능이 좋은 모델을 선택
+            GradBoost
+            accuracy : 0.679 # 데이터 특성 상 0.68이 거의 최대치
+            Precision : 0.885 # 예측한 것 중 맞춘 비율
+            Recall : 0.532 # 실제 지연 중 예측한 비율
+            ROC_AUC : 0.746 # 지연 위험이 높은 순 대로 분류하는 능력
+            AUC_Gap : 0.073 # 과적합 여부
+
+    3. 하이퍼파라미터 튜닝
+        RandomdizedSearchCV와 GridSearchCV를 사용하여 최적의 파라미터를 찾고,
+        튜닝 전과 튜닝 후 모델을 비교하여 성능이 가장 좋은 모델을 선택
+            RandomizedSearchCV
+            AUC_Gap : 0.026
+
+            GridSearchCV
+            AUC_Gap : 0.002
+        
+        GridSearchCV가 RandomizedSearchCV보다 과적합이 덜하고 성능이 더 좋음
+    4. 수동모델과 자동모델을 비교하여 최적의 모델을 선택
 
 ### 5. 서비스 기획
 * 지연 예측 서비스를 통해 고객의 화물 지연을 예측하고
