@@ -1,3 +1,57 @@
+사용한 변수 리스트
+base: "ID", "Gender", "Customer_rating"를 제외한 모든 변수
+      ['Customer_care_calls',
+      'Cost_of_the_Product',
+      'Prior_purchases',
+      'Product_importance',
+      'Discount_offered',
+      'Weight_in_gms',
+      'Reached.on.Time_Y.N',
+      'Discount_Group',
+      'Weight_Category',
+      'Wh_Shipment_Combo',
+      'Discounted_price',
+      'Price_per_weight',
+      'log_price_per_weight',
+      'log_price_per_weight_sq',
+      'Discount_rate',
+      'Management_score',
+      'Management_score_sq',
+      'Warehouse_block_A',
+      'Warehouse_block_B',
+      'Warehouse_block_C',
+      'Warehouse_block_D',
+      'Warehouse_block_F',
+      'Mode_of_Shipment_Flight',
+      'Mode_of_Shipment_Road',
+      'Mode_of_Shipment_Ship']
+
+no warehouse: 위의 base에서 Warehouse_block 원-핫 인코딩 변수들을 제외한 변수
+      ['Warehouse_block_A', 'Warehouse_block_B', 'Warehouse_block_C', 'Warehouse_block_D', 'Warehouse_block_F']를 제외한 변수
+
+no shipment: 위의 no warehouse에서 추가로 Mode_of_Shipment 원-핫 인코딩 변수들을 제외한 변수
+      ['Mode_of_Shipment_Flight', 'Mode_of_Shipment_Road', 'Mode_of_Shipment_Ship']를 제외한 변수
+         -> 이 시점부터 데이터상 앙상블 점수의 상위권 등장
+
+no weight: 위의 no shipment에서 추가로 Weight_in_gms 변수를 제외한 변수
+      -> 앙상블 점수의 최고점 0.79
+
+no management: 위의 no weight에서 추가로 Management_score를 제외한 변수
+
+no importance: 위의 no management에서 추가로 Product_importance를 제외한 변수
+
+no call: 위의 no importance에서 추가로 Customer_care_calls를 제외한 변수
+
+no price per weight: 위의 no call에서 추가로 price per weight를 제외한 변수
+      -> 앙상블 점수가 더이상 나타나지 않음
+
+no cost: 위의 no price per weight에서 추가로 Cost_of_the_Product를 제외한 변수
+
+no discount rate: 위의 no cost에서 추가로 Discount_rate를 제외한 변수
+
+no discount offered: 위의 no discount rate에서 추가로 Discount_offered를 제외한 변수
+
+
 [2026-02-11, 14:28]
 
 variant_baseline_model_test
