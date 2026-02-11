@@ -1,3 +1,19 @@
+[2026-02-11, 14:28]
+
+variant_baseline_model_test
+test_comparison
+test_result
+업로드
+ variant_baseline_model_test로 생성한 모델의 결과를
+test_result의 csv파일에 저장하였고
+test_comparison에서 불러올수있음
+
+
+
+
+
+
+
 [2026-02-09, 14:23] v3.1
 
 1. 파생변수 추가
