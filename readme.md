@@ -14,19 +14,15 @@ AUC_Gap : 모델의 과적합 방지
 ### 1. 조원 및 역할분담
 정영석 (조장) : 데이터 분석 및 피쳐 엔지니어링   
 권희민 : 모델링 및 하이퍼파라미터 진행   
-김보미 : 모델 평가 비교 및 서비스 기획   
+김보미 : 모델 평가 및 서비스 기획   
 김대원 : 코드 통합 및 프로젝트 발표   
    
-### 2. 모델의 주요 기능 및 서비스   
-* 지연 예측 : 주어진 물류데이터를 기반으로 특정 화물의 지연 여부를 실시간으로 예측 할 수 있습니다.   
-
-### 3. 사용한 기술 스택   
+### 2. 사용한 기술 스택   
 * 데이터 분석 : pandas, numpy, matplotlib, seaborn, sklearn, math
 * 모델링 : LogisticRegression, KNeighborsClassifier, SVC, DecisionTreeClassifier, RandomForestClassifier, GradientBoostingClassifier, ExtraTreesClassifier, StackingClassifier, XGBClassifier, LGBMClassifier, CatBoostClassifier, Pipeline, randit, uniform, AutoGluon
 * 평가 지표 : sklearn.metrics
 
-3. 데이터 분석 및 모델링 과정
-### 4. 데이터 분석 및 모델링 과정
+### 3. 데이터 분석 및 모델링 과정
 데이터의 특성 간 상관관계를 시각화해서 데이터를 분석, 지연에 영향을 미치는 특성을 파악합니다.
    * Discount_offered   
            이유 : 일정 금액 이상의 할인을 받으면 100% 지연되지 않는 특수한 패턴이 있습니다.    
@@ -62,9 +58,9 @@ AUC_Gap : 모델의 과적합 방지
 
         중복 변수 제거, 변수 갯수 줄이기를 한 모델 중 GradBoost 모델이 가장 좋은 성능을 보임
         Accuracy : 0.679
-        Precision : 0.872
+        Precision : 0.873
         Recall : 0.541
-        F1_Score : 0.685
+        F1_Score : 0.668
         AUC_Gap : 0.082
      
    * 하이퍼파라미터 튜닝
@@ -72,24 +68,51 @@ AUC_Gap : 모델의 과적합 방지
         튜닝 전과 튜닝 후 모델을 비교하여 성능이 가장 좋은 모델을 선택
      
         RandomizedSearchCV
-        Accuracy : 0.665
-        F1_Score : 0.685
-        AUC_Gap : 0.057
+        Accuracy : 0.690
+        Precision : 0.943
+        Recall : 0.511
+        F1_Score : 0.663
+        AUC_Gap : 0.013
 
         GridSearchCV
-        Accuracy : 0.685
-        F1_Score : 0.698
-        AUC_Gap : 0.040
+        Accuracy : 0.689
+        Precision : 0.949
+        Recall : 0.506
+        F1_Score : 0.660
+        AUC_Gap : 0.009
 
    * 실제 테스트 데이터로 모델 성능 평가
-        RandomizedSearchCV로 튜닝한 모델이
-        AUC_Gap : 0.027로 가장 성능이 좋았음
+        GridSearchCV로 튜닝한 모델이
+        AUC_Gap : 0.009로 가장 좋은 성능을 보임
 
    * 수동모델과 자동모델을 비교하여 최적의 모델을 선택
         AutoGluon Medium, High, Best 모델과 비교
+        Grid -> Best 순으로 성능이 좋았음
 
-        Random -> Medium -> Grid 순으로 성능이 좋았음
+### 4. 모델 평가
+최종 결정된 Grid 모델의 성능을 평가
+     장점
+     - 모델의 정밀도(Precision)의 수치가 높기 떄문에 예측한 '지연'은 실제로 '지연'일 확률이 높습니다.
+      
+     단점
+     - 모델의 재현율(Recall)의 수치가 낮아 전체 '지연' 중 예측하지 못하는 경우가 많습니다. 
+
+     개선점
+     - 데이터의 특성이 부족해 정확도 및 재현율을 높이는 데 한계가 있었습니다.
+     - 더 많은 데이터를 확보하여 모델의 성능을 개선할 수 있습니다.
 
 ### 5. 서비스 기획
-* 지연 예측 서비스를 통해 고객의 화물 지연을 예측하고
-고객 만족도를 높여 이탈을 막기 위한 서비스를 기획합니다
+현재 모델의 성능을 바탕으로 서비스를 기획합니다.
+     무릎점을 운영임계점으로 설정, 40%부터는 정밀도가 급격히 하락하기 때문에 최대를 40%로 설정
+
+     1. 효율 중시
+     임계점 : 0.7858
+     운영 비중 : 29%
+     정밀도 : 0.96
+     특징 : 지연이라고 예측한 것은 실제로 거의 지연이 되기 때문에, 비용을 최소화 할 수 있다.
+
+     2. 리스크 관리
+     임계점 : 0.7804
+     운영 비중 : 40%
+     정밀도 : 0.84
+     특징 : 정밀도는 떨어져 비용은 더 들어가지만, 더 많은 지연을 예측할 수 있다.
