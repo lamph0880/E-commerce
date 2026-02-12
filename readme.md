@@ -6,6 +6,7 @@
 그래서 평가 지표 중 Precision과 Recall, AUC_Gap을 중요하게 생각했습니다.
 
 Accuracy : '지연'과 '정상'을 모두 맞춘 비율
+ROC_AUC : '지연'과 '정상'을 얼마나 잘 구분하나
 Precision : '지연'이라고 예측한 것 중 실제 '지연'인 비율
 Recall : 실제 '지연'인 것 중 '지연'이라고 예측한 비율
 F1_Score : Recall과 Precision의 조화평균
