@@ -9,7 +9,7 @@ Accuracy : '지연'과 '정상'을 모두 맞춘 비율
 Precision : '지연'이라고 예측한 것 중 실제 '지연'인 비율
 Recall : 실제 '지연'인 것 중 '지연'이라고 예측한 비율
 F1_Score : Recall과 Precision의 조화평균
-AUC_Gap : 모델의 과적합 방지
+AUC_Gap : 검증데이터와 실제데이터의 차이를 알려줌. 모델의 과적합 방지
 
 ### 1. 조원 및 역할분담
 정영석 (조장) : 데이터 분석 및 피쳐 엔지니어링   
@@ -18,9 +18,17 @@ AUC_Gap : 모델의 과적합 방지
 김대원 : 코드 통합 및 프로젝트 발표   
    
 ### 2. 사용한 기술 스택   
-* 데이터 분석 : pandas, numpy, matplotlib, seaborn, sklearn, math
+* 데이터 분석 : pandas, numpy, matplotlib, seaborn, sklearn, logging, glob, platform
+
+* 전처리 : StandardScaler, LabelEncoder, OneHotEncoder, OrdinalEncoder
+
 * 모델링 : LogisticRegression, KNeighborsClassifier, SVC, DecisionTreeClassifier, RandomForestClassifier, GradientBoostingClassifier, ExtraTreesClassifier, StackingClassifier, XGBClassifier, LGBMClassifier, CatBoostClassifier, Pipeline, randit, uniform, AutoGluon
-* 평가 지표 : sklearn.metrics
+
+* 평가 지표 : accuracy_score, precision_score,
+recall_score, f1_score, 
+roc_auc_score, average_precision_score,
+confusion_matrix, classification_report, 
+ConfusionMatrixDisplay, precision_recall_fscore_support
 
 ### 3. 데이터 분석 및 모델링 과정
 데이터의 특성 간 상관관계를 시각화해서 데이터를 분석, 지연에 영향을 미치는 특성을 파악합니다.
@@ -55,6 +63,12 @@ AUC_Gap : 모델의 과적합 방지
    * 베이스라인, 파생변수추가, 중복변수제거 등 여러 방식으로 모델링
         여러 모델을 기본 파라미터로 학습
         과적합이 아닌 모델 중 성능이 좋은 모델을 선택
+        베이스라인 GradBoost 모델의 성능
+        Accuracy : 0.676
+        Precision : 0.867
+        Recall : 0.541
+        F1_Score : 0.666
+        AUC_Gap : 0.084
 
         중복 변수 제거, 변수 갯수 줄이기를 한 모델 중 GradBoost 모델이 가장 좋은 성능을 보임
         Accuracy : 0.679
